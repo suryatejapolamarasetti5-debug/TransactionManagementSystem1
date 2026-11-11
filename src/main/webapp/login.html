@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction Management - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="login-body">
+
+    <div class="login-container">
+
+        <h1>Transaction Management System</h1>
+        <p>Login to manage your transactions</p>
+
+        <div id="errorMessage" class="error-message"></div>
+
+        <form action="login" method="post">
+
+            <label>Roll Number</label>
+            <input type="text" id="username" name="username"
+                   placeholder="Enter your roll number"
+                   required>
+
+            <label>Password</label>
+            <input type="password" name="password"
+                   placeholder="Enter your password"
+                   required>
+
+            <label class="remember-option">
+                <input type="checkbox" name="rememberMe">
+                Remember my username
+            </label>
+
+            <button type="submit">Login</button>
+
+        </form>
+
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        if (params.get("error") === "invalid") {
+            document.getElementById("errorMessage").textContent =
+                "Invalid roll number or password!";
+        }
+
+        // Read remembered username cookie
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+            const parts = cookie.trim().split("=");
+
+            if (parts[0] === "rememberedUser") {
+                document.getElementById("username").value =
+                    decodeURIComponent(parts.slice(1).join("="));
+            }
+        }
+    </script>
+
+</body>
+</html>
